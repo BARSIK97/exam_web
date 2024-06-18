@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1> Книги </h1>
+    <table class="table table-auto">
+        <thead>
+            <tr>
+                <th> Название </th>
+                <th> Жанр </th>
+                <th> Год </th>
+                <th> Средняя оценка </th>
+                <th> Количество рецензий </th>
+                <th> Действия </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td> {{ book.book_name }} </td>
+                <td> 
+                    {% for genre in book.genres.split(',') %}
+                        {{ genre }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td> {{ book.year }} </td>
+                <td> {{ book.avg_rating or 'N/A' }} </td>
+                <td> {{ book.review_count or 'N/A' }} </td>
+                <td> 
+                    {% if current_user.is_authenticated %}
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Book Actions">
+                            {% if current_user.can('read', book) %}
+                                <a class="btn btn-primary" href="{{ url_for('view', book_id=book.book_id) }}">Просмотреть</a>
+                            {% endif %}
+                            {% if current_user.can('update', book) %}
+                                <a class="btn btn-primary" href="{{ url_for('edit', book_id=book.book_id) }}">Редактировать</a>
+                            {% endif %}
+                            {% if current_user.can('delete', book) %}
+                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-book-id="{{ book.book_id }}">Удалить</button>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if current_user.is_authenticated and current_user.can('create') %}
+    <a href="{{ url_for('new') }}" class="btn btn-primary">Добавить книгу</a>
+    {% endif %}
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteModalLabel">Удаление книги</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Вы уверены, что хотите удалить данную книгу?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                    <form method="post" id="deleteModalForm">
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='delete.js') }}"></script>
+{% endblock %}

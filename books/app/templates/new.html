@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if book_data %}
+        <h1>{{ book_data.book_name }}</h1>
+        <p>Год: {{ book_data.year }}</p>
+        <p>Издательство: {{ book_data.publishing_house }}</p>
+        <p>Автор: {{ book_data.author }}</p>
+        <p>Количество страниц: {{ book_data.volume_pages }}</p>
+        <p>Описание книги: {{ book_data.book_description }}</p>
+        <ul>
+            {% for genre in genres %}
+                <li>{{ genre.genre_name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>{{ flash }}</p>
+    {% endif %}
+{% endblock %}
