@@ -8,6 +8,7 @@
         <p>Автор: {{ book_data.author }}</p>
         <p>Количество страниц: {{ book_data.volume_pages }}</p>
         <p>Описание книги: {{ book_data.book_description }}</p>
+        <p>Жанры:</p>
         <ul>
             {% for genre in genres %}
                 <li>{{ genre.genre_name }}</li>

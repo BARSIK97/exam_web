@@ -11,16 +11,10 @@ class UsersPolicy:
         return True
 
     def update(self):
-        return current_user.is_admin() or current_user.id == self.user.id
+        return current_user.is_admin() or current_user.is_moder() or current_user.is_user()
 
     def delete(self):
         return current_user.is_admin()
 
     def assign_role(self):
-        return current_user.is_admin()
-
-    def view_users_stats(self):
-        return current_user.is_admin()
-
-    def view_paths_stats(self):
         return current_user.is_admin()

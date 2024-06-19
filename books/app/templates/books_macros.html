@@ -1,20 +1,36 @@
-{% macro book_form(action='create', book=None, errors=None) %}
+{% macro book_form(action='create', book=None, errors=None, all_genres=None, selected_genres=None) %}
 <form method="post" enctype="multipart/form-data">
     <div class="mb-3">
         <label class="form-label" for="book_title">Название книги</label>
-        <input class="form-control {% if errors and 'title' in errors %}is-invalid{% endif %}" type="text" id="book_title" name="book_title" value="{{ book.title or '' }}" required>
-        {% if errors and 'title' in errors %}
+        <input class="form-control {% if errors and 'book_name' in errors %}is-invalid{% endif %}" type="text" id="book_title" name="book_name" value="{{ book.book_name or '' }}" required>
+        {% if errors and 'book_name' in errors %}
         <div class="invalid-feedback">
-            {{ errors['title'] }}
+            {{ errors['book_name'] }}
+        </div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="genres">Жанры</label>
+        <div class="form-check">
+            {% for genre in all_genres %}
+                <div>
+                    <input class="form-check-input {% if errors and 'genre_ids' in errors %}is-invalid{% endif %}" type="checkbox" id="genre_{{ genre.genre_id }}" name="genre_ids" value="{{ genre.genre_id }}" {% if genre.genre_id in selected_genres %}checked{% endif %}>
+                    <label class="form-check-label" for="genre_{{ genre.genre_id }}">{{ genre.genre_name }}</label>
+                </div>
+            {% endfor %}
+        </div>
+        {% if errors and 'genre_ids' in errors %}
+        <div class="invalid-feedback">
+            {{ errors['genre_ids'] }}
         </div>
         {% endif %}
     </div>
     <div class="mb-3">
         <label class="form-label" for="description">Описание книги</label>
-        <textarea class="form-control {% if errors and 'description' in errors %}is-invalid{% endif %}" id="description" name="description" rows="3" required>{{ book.description or '' }}</textarea>
-        {% if errors and 'description' in errors %}
+        <textarea class="form-control {% if errors and 'book_description' in errors %}is-invalid{% endif %}" id="description" name="book_description" rows="3" required>{{ book.book_description or '' }}</textarea>
+        {% if errors and 'book_description' in errors %}
         <div class="invalid-feedback">
-            {{ errors['description'] }}
+            {{ errors['book_description'] }}
         </div>
         {% endif %}
     </div>
@@ -29,10 +45,10 @@
     </div>
     <div class="mb-3">
         <label class="form-label" for="publisher">Издательство</label>
-        <input class="form-control {% if errors and 'publisher' in errors %}is-invalid{% endif %}" type="text" id="publisher" name="publisher" value="{{ book.publisher or '' }}" required>
-        {% if errors and 'publisher' in errors %}
+        <input class="form-control {% if errors and 'publishing_house' in errors %}is-invalid{% endif %}" type="text" id="publisher" name="publishing_house" value="{{ book.publishing_house or '' }}" required>
+        {% if errors and 'publishing_house' in errors %}
         <div class="invalid-feedback">
-            {{ errors['publisher'] }}
+            {{ errors['publishing_house'] }}
         </div>
         {% endif %}
     </div>
@@ -47,10 +63,19 @@
     </div>
     <div class="mb-3">
         <label class="form-label" for="pages">Количество страниц</label>
-        <input class="form-control {% if errors and 'pages' in errors %}is-invalid{% endif %}" type="number" id="pages" name="pages" value="{{ book.pages or '' }}" required>
-        {% if errors and 'pages' in errors %}
+        <input class="form-control {% if errors and 'volume_pages' in errors %}is-invalid{% endif %}" type="number" id="pages" name="volume_pages" value="{{ book.volume_pages or '' }}" required>
+        {% if errors and 'volume_pages' in errors %}
         <div class="invalid-feedback">
-            {{ errors['pages'] }}
+            {{ errors['volume_pages'] }}
+        </div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="cover_id">Обложка (cover_id)</label>
+        <input class="form-control {% if errors and 'cover_id' in errors %}is-invalid{% endif %}" type="number" id="cover_id" name="cover_id" value="{{ book.cover_id or '' }}" required>
+        {% if errors and 'cover_id' in errors %}
+        <div class="invalid-feedback">
+            {{ errors['cover_id'] }}
         </div>
         {% endif %}
     </div>

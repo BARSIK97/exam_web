@@ -1,8 +1,7 @@
-{% extends 'base.html' %}
-
-{% from 'users/form.html' import user_form %}
+{% extends "base.html" %}
+{% from "books_macros.html" import book_form %}
 
 {% block content %}
-    <h1 class="mb-3">Изменение пользователя</h1>
-    {{ user_form(roles, 'edit', current_user, user_data) }}
+<h1>Редактировать книгу</h1>
+{{ book_form(action='update', book=book_data, errors=errors, all_genres=all_genres, selected_genres=selected_genres) }}
 {% endblock %}

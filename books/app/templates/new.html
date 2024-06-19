@@ -1,19 +1,6 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% from 'books_macros.html' import book_form %}
 {% block content %}
-    {% if book_data %}
-        <h1>{{ book_data.book_name }}</h1>
-        <p>Год: {{ book_data.year }}</p>
-        <p>Издательство: {{ book_data.publishing_house }}</p>
-        <p>Автор: {{ book_data.author }}</p>
-        <p>Количество страниц: {{ book_data.volume_pages }}</p>
-        <p>Описание книги: {{ book_data.book_description }}</p>
-        <ul>
-            {% for genre in genres %}
-                <li>{{ genre.genre_name }}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>{{ flash }}</p>
-    {% endif %}
+<h1>Добавление новой книги</h1>
+{{ book_form(action='create', book={}, errors=errors, all_genres=all_genres, selected_genres=selected_genres) }}
 {% endblock %}
