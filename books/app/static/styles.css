@@ -4,9 +4,19 @@ body {
     font-size: 1.1rem;
     min-height: 100vh;
 }
+
+.btn {
+    margin-bottom: 5px;
+}
+
+.navbar-collapse {
+flex-grow: 0;
+}
+
 footer {
     flex-shrink: 0;
-  }
+}
+
 .footer-line {
     opacity: 2.00;
     margin: 0;

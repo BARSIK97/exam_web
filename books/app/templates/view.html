@@ -2,19 +2,51 @@
 
 {% block content %}
     {% if book_data %}
-        <h1>{{ book_data.book_name }}</h1>
-        <p>Год: {{ book_data.year }}</p>
-        <p>Издательство: {{ book_data.publishing_house }}</p>
-        <p>Автор: {{ book_data.author }}</p>
-        <p>Количество страниц: {{ book_data.volume_pages }}</p>
-        <p>Описание книги: {{ book_data.book_description }}</p>
-        <p>Жанры:</p>
+    <h1>{{ book_data.book_name }}</h1>
+    <p><strong>Год:</strong> {{ book_data.year }}</p>
+    <p><strong>Издательство: </strong>{{ book_data.publishing_house }}</p>
+    <p><strong>Автор: </strong>{{ book_data.author }}</p>
+    <p><strong>Количество страниц:</strong> {{ book_data.volume_pages }}</p>
+    <p><strong>Описание книги: </strong>{{ book_data.book_description | safe}}</p>
+    <p><strong>Жанры:</strong></p>
+    <ul>
+        {% for genre in genres %}
+            <li>{{ genre.genre_name }}</li>
+        {% endfor %}
+    </ul>
+    
+    <h2>Рецензии:</h2>
+    {% if reviews %}
         <ul>
-            {% for genre in genres %}
-                <li>{{ genre.genre_name }}</li>
+            {% for review in reviews %}
+                <li>
+                    <strong>Пользователь:</strong> {{ review.username }}<br>
+                    <strong>Оценка:</strong> {{ review.rating }}<br>
+                    <strong>Текст:</strong> {{ review.text | safe}}
+                </li>
+                {% if current_user.is_authenticated %}
+                    {% if current_user.is_admin() or current_user.is_moder() %}
+                        <form method="POST" action="{{ url_for('delete_review', review_id=review.review_id, book_id=book_data.book_id) }}" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                        </form>
+                    {% endif %}
+                {% endif %}
             {% endfor %}
         </ul>
     {% else %}
+        <p>Рецензий пока нет</p>
+    {% endif %}
+    
+    {% if current_user.is_authenticated %}
+        {% if user_review %}
+            <h3>Ваша рецензия:</h3>
+            <p><strong>Оценка:</strong> {{ user_review.rating }}</p>
+            <p><strong>Текст:</strong>{{ user_review.text | safe}}</p>
+        {% else %}
+            <a class="btn btn-primary" href="{{ url_for('write_review', book_id=book_data.book_id) }}">Написать рецензию</a>
+        {% endif %}
+    {% endif %}
+        {% else %}
         <p>{{ flash }}</p>
     {% endif %}
 {% endblock %}

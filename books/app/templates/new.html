@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% from 'books_macros.html' import book_form %}
+
 {% block content %}
 <h1>Добавление новой книги</h1>
 {{ book_form(action='create', book={}, errors=errors, all_genres=all_genres, selected_genres=selected_genres) }}
