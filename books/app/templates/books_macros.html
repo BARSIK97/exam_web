@@ -2,7 +2,8 @@
 <form method="post" enctype="multipart/form-data">
     <div class="mb-3">
         <label class="form-label" for="book_title">Название книги</label>
-        <input class="form-control {% if errors and 'book_name' in errors %}is-invalid{% endif %}" type="text" id="book_title" name="book_name" value="{{ book.book_name or '' }}" required>
+        <input class="form-control {% if errors and 'book_name' in errors %}is-invalid{% endif %}" type="text"
+            id="book_title" name="book_name" value="{{ book.book_name or '' }}" required>
         {% if errors and 'book_name' in errors %}
         <div class="invalid-feedback">
             {{ errors['book_name'] }}
@@ -13,10 +14,12 @@
         <label class="form-label" for="genres">Жанры</label>
         <div class="form-check">
             {% for genre in all_genres %}
-                <div>
-                    <input class="form-check-input {% if errors and 'genres' in errors %}is-invalid{% endif %}" type="checkbox" id="genre_{{ genre.genre_id }}" name="genre_ids" value="{{ genre.genre_id }}" {% if genre.genre_id in selected_genres %}checked{% endif %}>
-                    <label class="form-check-label" for="genre_{{ genre.genre_id }}">{{ genre.genre_name }}</label>
-                </div>
+            <div>
+                <input class="form-check-input {% if errors and 'genres' in errors %}is-invalid{% endif %}"
+                    type="checkbox" id="genre_{{ genre.genre_id }}" name="genre_ids" value="{{ genre.genre_id }}" {% if
+                    genre.genre_id in selected_genres %}checked{% endif %}>
+                <label class="form-check-label" for="genre_{{ genre.genre_id }}">{{ genre.genre_name }}</label>
+            </div>
             {% endfor %}
         </div>
         {% if errors and 'genres' in errors %}
@@ -27,7 +30,8 @@
     </div>
     <div class="mb-3">
         <label class="form-label" for="description">Описание книги</label>
-        <textarea id="description" name="book_description" rows="5" class="form-control {% if errors and 'book_description' in errors %}is-invalid{% endif %}">
+        <textarea id="description" name="book_description" rows="5"
+            class="form-control {% if errors and 'book_description' in errors %}is-invalid{% endif %}">
             {{ book.book_description or '' }}
         </textarea>
         {% if errors and 'book_description' in errors %}
@@ -35,9 +39,11 @@
             {{ errors['book_description'] }}
         </div>
         {% endif %}
-    </div>    <div class="mb-3">
+    </div>
+    <div class="mb-3">
         <label class="form-label" for="year">Год издания</label>
-        <input class="form-control {% if errors and 'year' in errors %}is-invalid{% endif %}" type="number" id="year" name="year" value="{{ book.year or '' }}" required>
+        <input class="form-control {% if errors and 'year' in errors %}is-invalid{% endif %}" type="number" id="year"
+            name="year" value="{{ book.year or '' }}" required>
         {% if errors and 'year' in errors %}
         <div class="invalid-feedback">
             {{ errors['year'] }}
@@ -46,7 +52,8 @@
     </div>
     <div class="mb-3">
         <label class="form-label" for="publisher">Издательство</label>
-        <input class="form-control {% if errors and 'publishing_house' in errors %}is-invalid{% endif %}" type="text" id="publisher" name="publishing_house" value="{{ book.publishing_house or '' }}" required>
+        <input class="form-control {% if errors and 'publishing_house' in errors %}is-invalid{% endif %}" type="text"
+            id="publisher" name="publishing_house" value="{{ book.publishing_house or '' }}" required>
         {% if errors and 'publishing_house' in errors %}
         <div class="invalid-feedback">
             {{ errors['publishing_house'] }}
@@ -55,7 +62,8 @@
     </div>
     <div class="mb-3">
         <label class="form-label" for="author">Автор</label>
-        <input class="form-control {% if errors and 'author' in errors %}is-invalid{% endif %}" type="text" id="author" name="author" value="{{ book.author or '' }}" required>
+        <input class="form-control {% if errors and 'author' in errors %}is-invalid{% endif %}" type="text" id="author"
+            name="author" value="{{ book.author or '' }}" required>
         {% if errors and 'author' in errors %}
         <div class="invalid-feedback">
             {{ errors['author'] }}
@@ -64,7 +72,8 @@
     </div>
     <div class="mb-3">
         <label class="form-label" for="pages">Количество страниц</label>
-        <input class="form-control {% if errors and 'volume_pages' in errors %}is-invalid{% endif %}" type="number" id="pages" name="volume_pages" value="{{ book.volume_pages or '' }}" required>
+        <input class="form-control {% if errors and 'volume_pages' in errors %}is-invalid{% endif %}" type="number"
+            id="pages" name="volume_pages" value="{{ book.volume_pages or '' }}" required>
         {% if errors and 'volume_pages' in errors %}
         <div class="invalid-feedback">
             {{ errors['volume_pages'] }}
@@ -74,25 +83,26 @@
     {% if action == 'create' %}
     <div class="mb-3">
         <label class="form-label" for="cover_id">Обложка</label>
-        <input class="form-control {% if errors and 'cover_id' in errors %}is-invalid{% endif %}" type="number" id="cover_id" name="cover_id" value="{{ book.cover_id or '' }}" required>
+        <input class="form-control {% if errors and 'cover_id' in errors %}is-invalid{% endif %}" type="number"
+            id="cover_id" name="cover_id" value="{{ book.cover_id or '' }}" required>
         {% if errors and 'cover_id' in errors %}
         <div class="invalid-feedback">
             {{ errors['cover_id'] }}
         </div>
         {% endif %}
         {% endif %}
-    </div>    
+    </div>
     <button class="btn btn-primary">Сохранить</button>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
     <script defer>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var editorElement = document.getElementById("description");
             if (editorElement) {
                 var editor = new EasyMDE({
                     element: editorElement,
                 });
-            } 
+            }
         });
     </script>
 </form>

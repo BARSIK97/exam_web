@@ -19,16 +19,16 @@
         <textarea class="form-control" id="textrec" name="textrec" rows="3"></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Сохранить</button>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
     <script defer>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var editorElement = document.getElementById("textrec");
             if (editorElement) {
                 var editor = new EasyMDE({
                     element: editorElement,
                 });
-            } 
+            }
         });
     </script>
 

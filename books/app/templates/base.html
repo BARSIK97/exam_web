@@ -33,7 +33,8 @@
         <div class="navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             {% if current_user.is_authenticated %}
-            <span class="nav-link active">{{ current_user.first_name }} {{ current_user.middle_name }} {{ current_user.last_name }}</span>
+            <span class="nav-link active">{{ current_user.first_name }} {{ current_user.middle_name }} {{
+              current_user.last_name }}</span>
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{{ url_for('logout') }}"> Выйти</a>
               {% else %}
@@ -64,10 +65,9 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous">
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+
 </body>
 
 </html>
